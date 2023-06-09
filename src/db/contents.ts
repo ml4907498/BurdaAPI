@@ -16,3 +16,6 @@ export const createContent = (values: Record<string, any>) =>
   new ContentModel(values).save().then((content) => content.toObject());
 
 export const getContentById = (id: string) => ContentModel.findById(id);
+
+export const deleteContentById = (id: string) =>
+  ContentModel.findOneAndDelete({ _id: id });
