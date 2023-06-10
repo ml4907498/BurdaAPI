@@ -14,10 +14,10 @@ const getContent = async (req: express.Request, res: express.Response) => {
     const { id } = req.params;
     const content = await getContentById(id);
     console.log(id);
-    return res.status(200).json(content).end();
+    return res.status(200).json(content);
   } catch (error) {
     console.log(error);
-    return res.sendStatus(400);
+    return res.status(404).json({ msg: 'Content not found!' });
   }
 };
 
@@ -52,7 +52,7 @@ const addContent = async (req: express.Request, res: express.Response) => {
       publishDate,
       paragraph,
     });
-    return res.status(200).json(content).end();
+    return res.status(200).json(content);
   } catch (error) {
     console.log(error);
     return res.sendStatus(400);

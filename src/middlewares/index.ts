@@ -40,7 +40,7 @@ export const isAuthorized = async (
 ) => {
   try {
     const requestType: string = req.method;
-    const access: ACCESS = get(req, 'access');
+    const access = get(req, 'access');
     console.log(access);
     if (!access) {
       return res.sendStatus(400);

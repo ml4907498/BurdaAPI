@@ -33,13 +33,3 @@ export interface Content {
   paragraph: string;
   // media: Media[]; // media can be image or video
 }
-
-const fakeContent: Content = {
-  _id: '123',
-  title: '123',
-  partnerId: '123',
-  description: '123',
-  originalUrl: '123',
-  publishDate: '123',
-  paragraph: '123',
-};
