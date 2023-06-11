@@ -1,0 +1,41 @@
+version: '3.9'
+
+services:
+  # MongoDB services
+  mongo_db:
+    container_name: db_container
+    image: mongo:latest
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongo_db:/data/db
+    networks:
+      - expressApp-network
+      
+  # Node API services
+  api:
+    build: .
+    restart: on-failure
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - 3000:3000
+    environment:
+      PORT: 3000
+      MONGODB_URI: mongodb://mongo_db:27017
+      DB_NAME: my_db
+    depends_on:
+      - mongo_db
+    command:  >
+      sh -c "npm start"
+    networks:
+      - expressApp-network
+
+networks:
+  expressApp-network:
+    driver: bridge
+
+volumes:
+  mongo_db: {}
+      

@@ -1,15 +1,16 @@
-import express from 'express';
+import { Request, Response } from 'express';
 
 import {
   getContentById,
   createContent,
   deleteContentById,
+  getContents,
 } from '../db/contents';
 
 import { generateUUID } from '../helpers';
 import { Content } from 'interfaces/contents';
 
-const getContent = async (req: express.Request, res: express.Response) => {
+const getContent = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const content = await getContentById(id);
@@ -21,7 +22,7 @@ const getContent = async (req: express.Request, res: express.Response) => {
   }
 };
 
-const addContent = async (req: express.Request, res: express.Response) => {
+const addContent = async (req: Request, res: Response) => {
   try {
     const {
       title,
@@ -59,7 +60,7 @@ const addContent = async (req: express.Request, res: express.Response) => {
   }
 };
 
-const deleteContent = async (req: express.Request, res: express.Response) => {
+const deleteContent = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
@@ -72,4 +73,15 @@ const deleteContent = async (req: express.Request, res: express.Response) => {
   }
 };
 
-export { getContent, addContent, deleteContent };
+const getAllContents = async (req: Request, res: Response) => {
+  try {
+    const contents = await getContents();
+
+    return res.status(200).json(contents);
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(400);
+  }
+};
+
+export { getContent, addContent, deleteContent, getAllContents };

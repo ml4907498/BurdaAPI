@@ -12,6 +12,8 @@ const ContentSchema = new mongoose.Schema({
 
 export const ContentModel = mongoose.model('Content', ContentSchema);
 
+export const getContents = () => ContentModel.find();
+
 export const createContent = (values: Record<string, any>) =>
   new ContentModel(values).save().then((content) => content.toObject());
 

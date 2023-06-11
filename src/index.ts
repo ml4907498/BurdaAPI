@@ -5,13 +5,20 @@ import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
 import morgan from 'morgan';
 import router from './routes';
+import { initDB } from './helpers';
+
+dotenv.config();
 
 const PORT = process.env.PORT || 3000;
 
+console.log(process.env.MONGODB_URI);
 const app = express();
+
+initDB(process.env);
 
 app.use(
   cors({
@@ -39,11 +46,11 @@ server.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}/`);
 });
 
-const MONGO_URL =
-  'mongodb+srv://Kehong:aifaulBkMUeEdqdc@cluster0.ppfgtos.mongodb.net/?retryWrites=true&w=majority';
+// const MONGO_URL =
+//   'mongodb+srv://Kehong:aifaulBkMUeEdqdc@cluster0.ppfgtos.mongodb.net/?retryWrites=true&w=majority';
 
-mongoose.Promise = Promise;
-mongoose.connect(MONGO_URL);
-mongoose.connection.on('error', (error: Error) => console.log(error));
+// mongoose.Promise = Promise;
+// mongoose.connect(MONGO_URL);
+// mongoose.connection.on('error', (error: Error) => console.log(error));
 
 app.use('/', router());

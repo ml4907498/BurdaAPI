@@ -1,10 +1,10 @@
-import express from 'express';
+import { Request, Response } from 'express';
 
 import { getUsers, getUserById, createUser } from '../db/users';
 import { generateUUID } from '../helpers';
 import { User } from '../interfaces/users';
 
-const getAllUsers = async (req: express.Request, res: express.Response) => {
+const getAllUsers = async (req: Request, res: Response) => {
   try {
     const users: User[] = await getUsers();
 
@@ -15,7 +15,7 @@ const getAllUsers = async (req: express.Request, res: express.Response) => {
   }
 };
 
-const getUser = async (req: express.Request, res: express.Response) => {
+const getUser = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const user: User = await getUserById(id);
@@ -27,7 +27,7 @@ const getUser = async (req: express.Request, res: express.Response) => {
   }
 };
 
-const addUser = async (req: express.Request, res: express.Response) => {
+const addUser = async (req: Request, res: Response) => {
   try {
     const { partnerId, key } = req.body;
 
@@ -46,4 +46,5 @@ const addUser = async (req: express.Request, res: express.Response) => {
     return res.sendStatus(400);
   }
 };
+
 export { getAllUsers, getUser, addUser };

@@ -45,10 +45,9 @@ export const isAuthorized = async (
     if (!access) {
       return res.sendStatus(400);
     }
-    console.log(access === 'WRITE' || access === 'BOTH');
     switch (requestType) {
       case 'GET':
-        if (access === 'READ' || 'BOTH') {
+        if (access === 'READ' || access === 'BOTH') {
           next();
         } else {
           return res.sendStatus(401);

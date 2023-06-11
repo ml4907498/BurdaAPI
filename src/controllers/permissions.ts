@@ -1,4 +1,4 @@
-import express from 'express';
+import { Request, Response } from 'express';
 import {
   getPermissions,
   getPermissionById,
@@ -8,10 +8,7 @@ import {
 import { generateUUID } from '../helpers';
 import { Permission } from './../interfaces/permissions';
 
-const getAllPermissions = async (
-  req: express.Request,
-  res: express.Response,
-) => {
+const getAllPermissions = async (req: Request, res: Response) => {
   try {
     const permissions = await getPermissions();
 
@@ -22,7 +19,7 @@ const getAllPermissions = async (
   }
 };
 
-const getPermission = async (req: express.Request, res: express.Response) => {
+const getPermission = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const permission = await getPermissionById(id);
@@ -34,7 +31,7 @@ const getPermission = async (req: express.Request, res: express.Response) => {
   }
 };
 
-const addPermission = async (req: express.Request, res: express.Response) => {
+const addPermission = async (req: Request, res: Response) => {
   try {
     const { partnerId, access } = req.body;
 

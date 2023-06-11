@@ -1,16 +1,16 @@
-import express from 'express';
+import { Request, Response } from 'express';
 
-import { getUserById } from '../db/users';
+import { getUserByPartnerId } from '../db/users';
 import { User } from '../interfaces/users';
 
-export const login = async (req: express.Request, res: express.Response) => {
+export const login = async (req: Request, res: Response) => {
   try {
-    const { id } = req.body;
+    const { partnerId } = req.body;
     // if (!id) {
     //   return res.sendStatus(400);
     // }
 
-    const user: User = await getUserById(id);
+    const user: User = await getUserByPartnerId(partnerId);
     if (!user) {
       return res.status(404).json({ msg: 'User not found!' });
     }
