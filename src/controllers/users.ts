@@ -4,6 +4,7 @@ import { getUsers, getUserById, createUser } from '../db/users';
 import { generateUUID } from '../helpers';
 import { User } from '../interfaces/users';
 
+// Retrieves all users
 const getAllUsers = async (req: Request, res: Response) => {
   try {
     const users: User[] = await getUsers();
@@ -15,6 +16,7 @@ const getAllUsers = async (req: Request, res: Response) => {
   }
 };
 
+// Retrieves a specific user by id
 const getUser = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -27,13 +29,17 @@ const getUser = async (req: Request, res: Response) => {
   }
 };
 
+//  Adds a new user
 const addUser = async (req: Request, res: Response) => {
   try {
     const { partnerId, key } = req.body;
 
+    // check the required params
     if (!partnerId || !key) {
       return res.sendStatus(400);
     }
+
+    // generate a random UUID
     const _id = generateUUID();
     const user: User = await createUser({
       _id,

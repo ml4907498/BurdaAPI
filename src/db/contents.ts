@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 
+// Content Config
 const ContentSchema = new mongoose.Schema({
   _id: { type: String, required: true },
   title: { type: String, reuqired: true },
@@ -12,6 +13,7 @@ const ContentSchema = new mongoose.Schema({
 
 export const ContentModel = mongoose.model('Content', ContentSchema);
 
+// Content Actions
 export const getContents = () => ContentModel.find();
 
 export const createContent = (values: Record<string, any>) =>

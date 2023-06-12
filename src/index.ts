@@ -4,7 +4,6 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import cors from 'cors';
-import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
 import morgan from 'morgan';
@@ -38,19 +37,10 @@ app.use(express.json());
 app.use(morgan('tiny'));
 app.use(express.static('public'));
 
-// app.use(Router);
-
 const server = http.createServer(app);
 
 server.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}/`);
 });
-
-// const MONGO_URL =
-//   'mongodb+srv://Kehong:aifaulBkMUeEdqdc@cluster0.ppfgtos.mongodb.net/?retryWrites=true&w=majority';
-
-// mongoose.Promise = Promise;
-// mongoose.connect(MONGO_URL);
-// mongoose.connection.on('error', (error: Error) => console.log(error));
 
 app.use('/', router());

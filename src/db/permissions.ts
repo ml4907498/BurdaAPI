@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-// User Config
+// Permission Config
 const PermissionSchema = new mongoose.Schema({
   _id: { type: String, required: true },
   partnerId: { type: String, required: true },

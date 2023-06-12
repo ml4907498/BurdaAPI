@@ -1,9 +1,10 @@
 import crypto from 'crypto';
 import mongoose, { ConnectOptions } from 'mongoose';
 
+// generate a random UUID
 export const generateUUID = () => crypto.randomUUID();
 
-console.log(process.env.MONGODB_URI);
+// initialize the DB with the URI and database name
 export const initDB = (env: any) => {
   mongoose
     .connect(env.MONGODB_URI, {

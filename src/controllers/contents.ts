@@ -10,6 +10,7 @@ import {
 import { generateUUID } from '../helpers';
 import { Content } from 'interfaces/contents';
 
+// Retrieves a specific content item by its ID.
 const getContent = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -22,7 +23,9 @@ const getContent = async (req: Request, res: Response) => {
   }
 };
 
+// Adds a new content item.
 const addContent = async (req: Request, res: Response) => {
+  // check the required params
   try {
     const {
       title,
@@ -43,6 +46,7 @@ const addContent = async (req: Request, res: Response) => {
     ) {
       return res.sendStatus(400);
     }
+    // generate a random UUID
     const _id = generateUUID();
     const content = await createContent({
       _id,
@@ -60,6 +64,7 @@ const addContent = async (req: Request, res: Response) => {
   }
 };
 
+// Deletes a content item by its ID.
 const deleteContent = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -73,6 +78,7 @@ const deleteContent = async (req: Request, res: Response) => {
   }
 };
 
+// Retrieves all content items.
 const getAllContents = async (req: Request, res: Response) => {
   try {
     const contents = await getContents();

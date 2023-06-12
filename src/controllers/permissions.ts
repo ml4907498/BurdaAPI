@@ -3,11 +3,13 @@ import {
   getPermissions,
   getPermissionById,
   createPermission,
+  getPermissionByPartnerId,
 } from '../db/permissions';
 
 import { generateUUID } from '../helpers';
 import { Permission } from './../interfaces/permissions';
 
+//  Retrieves all permissions
 const getAllPermissions = async (req: Request, res: Response) => {
   try {
     const permissions = await getPermissions();
@@ -19,11 +21,12 @@ const getAllPermissions = async (req: Request, res: Response) => {
   }
 };
 
+// Retrieves a specific permission by its partnerId
 const getPermission = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
-    const permission = await getPermissionById(id);
-    console.log(id);
+    const { partnerId } = req.params;
+    const permission = await getPermissionByPartnerId(partnerId);
+    console.log(partnerId);
     return res.status(200).json(permission).end();
   } catch (error) {
     console.log(error);
@@ -31,6 +34,7 @@ const getPermission = async (req: Request, res: Response) => {
   }
 };
 
+// Adds a new permission item
 const addPermission = async (req: Request, res: Response) => {
   try {
     const { partnerId, access } = req.body;
@@ -38,6 +42,8 @@ const addPermission = async (req: Request, res: Response) => {
     if (!partnerId || !access) {
       return res.sendStatus(400);
     }
+
+    // generate a random UUID
     const _id = generateUUID();
     const permission = await createPermission({
       _id,

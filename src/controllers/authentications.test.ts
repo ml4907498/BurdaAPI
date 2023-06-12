@@ -41,19 +41,19 @@ describe('login', () => {
     expect(mockRes.json).toHaveBeenCalledWith(userMock);
   });
 
-  // test('should handle missing id and return 400 status', async () => {
-  //   // Mock request and response objects
-  //   const mockReq: Partial<Request> = { body: {} };
-  //   const mockRes: Partial<Response> = {
-  //     sendStatus: jest.fn(),
-  //   };
+  test('should handle missing id and return 400 status', async () => {
+    // Mock request and response objects
+    const mockReq: Partial<Request> = { body: {} };
+    const mockRes: Partial<Response> = {
+      sendStatus: jest.fn(),
+    };
 
-  //   // Call the login function
-  //   await login(mockReq as Request, mockRes as Response);
+    // Call the login function
+    await login(mockReq as Request, mockRes as Response);
 
-  //   // Assert the expected behavior
-  //   expect(mockRes.sendStatus).toHaveBeenCalledWith(400);
-  // });
+    // Assert the expected behavior
+    expect(mockRes.sendStatus).toHaveBeenCalledWith(400);
+  });
 
   test('should return 404 error if user is not found', async () => {
     // Mock data
@@ -79,6 +79,4 @@ describe('login', () => {
     expect(mockRes.status).toHaveBeenCalledWith(404);
     expect(mockRes.json).toHaveBeenCalledWith({ msg: 'User not found!' });
   });
-
-  // ... Additional test cases ...
 });

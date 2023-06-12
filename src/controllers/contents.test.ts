@@ -12,6 +12,7 @@ describe('getContent', () => {
   });
 
   test('should return content from the database', async () => {
+    // Mock the content data
     const contentId = 'test123';
     const contentMock = {
       _id: 'test123',
@@ -22,17 +23,21 @@ describe('getContent', () => {
       publishDate: '2022-01-01',
       paragraph: 'Test Paragraph',
     };
+    // Mock request and response objects
     const mockReq: Partial<Request> = { params: { id: contentId } };
     const mockRes: Partial<Response> = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn(),
     };
 
+    // Mock the getContentById function
     const getContentByIdMock = jest.spyOn(ContentDB, 'getContentById');
     getContentByIdMock.mockResolvedValueOnce(contentMock);
 
+    // Call the getContent function
     await getContent(mockReq as Request, mockRes as Response);
 
+    // Assert the expected behavior
     expect(getContentByIdMock).toHaveBeenCalledWith(contentId);
     expect(getContentByIdMock).toHaveBeenCalledTimes(1);
     expect(mockRes.status).toHaveBeenCalledWith(200);
@@ -40,6 +45,7 @@ describe('getContent', () => {
   });
 
   test('should handle error and return 400 status', async () => {
+    // Mock request and response objects
     const contentId = 'test123';
     const mockReq: Partial<Request> = { params: { id: contentId } };
     const mockRes: Partial<Response> = {
@@ -53,6 +59,7 @@ describe('getContent', () => {
 
     await getContent(mockReq as Request, mockRes as Response);
 
+    // Assert the expected behavior
     expect(getContentByIdMock).toHaveBeenCalledWith(contentId);
     expect(getContentByIdMock).toHaveBeenCalledTimes(1);
     expect(mockRes.status).toHaveBeenCalledWith(404);
@@ -62,6 +69,7 @@ describe('getContent', () => {
 
 describe('addContent', () => {
   test('should create content and return it', async () => {
+    // Mock request and response objects
     const mockReq: Partial<Request> = {
       body: {
         title: 'Test Title',
@@ -76,6 +84,8 @@ describe('addContent', () => {
       status: jest.fn().mockReturnThis(),
       json: jest.fn(),
     };
+
+    // Mock the return json of response
     const contentMock = {
       _id: expect.any(String),
       title: 'Test Title',
@@ -91,6 +101,7 @@ describe('addContent', () => {
 
     await addContent(mockReq as Request, mockRes as Response);
 
+    // Assert the expected behavior
     expect(createContentMock).toHaveBeenCalledWith(
       expect.objectContaining(mockReq.body),
     );
@@ -117,11 +128,14 @@ describe('addContent', () => {
 
 describe('deleteContent', () => {
   test('should delete content and return it', async () => {
+    // Mock request and response objects
     const contentId = 'test123';
     const mockReq: Partial<Request> = { params: { id: contentId } };
     const mockRes: Partial<Response> = {
       json: jest.fn(),
     };
+
+    // Mock the return json of response
     const deletedContentMock = {
       _id: 'test123',
       title: 'Test Title',
@@ -137,12 +151,14 @@ describe('deleteContent', () => {
 
     await deleteContent(mockReq as Request, mockRes as Response);
 
+    // Assert the expected behavior
     expect(deleteContentByIdMock).toHaveBeenCalledWith(contentId);
     expect(deleteContentByIdMock).toHaveBeenCalledTimes(1);
     expect(mockRes.json).toHaveBeenCalledWith(deletedContentMock);
   });
 
   test('should handle error and return 400 status', async () => {
+    // Mock request and response objects
     const contentId = 'test123';
     const mockReq: Partial<Request> = { params: { id: contentId } };
     const mockRes: Partial<Response> = {
@@ -155,6 +171,7 @@ describe('deleteContent', () => {
 
     await deleteContent(mockReq as Request, mockRes as Response);
 
+    // Assert the expected behavior
     expect(deleteContentByIdMock).toHaveBeenCalledWith(contentId);
     expect(deleteContentByIdMock).toHaveBeenCalledTimes(1);
     expect(mockRes.sendStatus).toHaveBeenCalledWith(400);
